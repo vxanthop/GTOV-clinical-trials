@@ -6,6 +6,6 @@ CTGOV-02: Συχνά Φάρμακα για την αντιμετώπιση μι�
 
 Τέλος το σύστημα θα παρουσιάζει τα άρθρα στα οποία το φάρμακο υπάρχει και στα τρία παραπάνω πεδία (interventions, brief summary, eligibility criteria) καθώς επίσης και αυτά στα οποία δεν υπάρχει είτε στο ένα (brief summary) είτε στο άλλο (eligibility criteria).
 
-Για τις ανάγκες τις εφαρμογής θα χρησιμοποιηθεί το dataset του Clinical Trials Gov: https://clinicaltrials.gov/.
+Για τις ανάγκες της εφαρμογής θα χρησιμοποιηθεί το dataset του Clinical Trials Gov: https://clinicaltrials.gov/.
 
 Για την ανάπτυξη της εφαρμογής θα χρησιμοποιηθούν MySQL για την βάση δεδομένων, HTML και JavaScript για το front-end και node.js για το back-end.
