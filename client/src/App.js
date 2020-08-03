@@ -1,15 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
 import './App.css';
-import Studies from './components/studies/studies'
+import StudySearch from './components/StudySearch/StudySearch'
+import Study from './components/Study/Study'
 
 function App() {
+  const [ studies, setStudies ] = useState([]);
+
+  useEffect(() => {
+    fetch('/api/studies')
+      .then(res => res.json())
+      .then(res => setStudies(res))
+  }, []);
+
+
+  const updateStudies = data => {
+    fetch(`/api/studies/${data}`)
+      .then(res => res.json())
+      .then(res => setStudies(res))
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-      <Studies />
-      </header>
+    <div className="app">
+    <header>
+        Clinical Trials Gov
+    </header>
+    <StudySearch updateStudies={updateStudies} />
+      <div className="study-list">
+        {studies.map((study, index) => (
+            <Study key={index} index={index} study={study} />
+        ))}
+      </div>
     </div>
   );
 }
