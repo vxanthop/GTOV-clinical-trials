@@ -19,7 +19,7 @@ function StudySearch({ updateStudies }) {
 				value={value}
 				placeholder="Filter studies..." 
 				onChange={e => setValue(e.target.value)} 
-		/>
+		    />
 		</form>
 	);
 }

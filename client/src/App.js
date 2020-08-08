@@ -22,9 +22,9 @@ function App() {
   return (
     <div className="app">
     <header>
-        Clinical Trials Gov
+        <h1>Clinical Trials Gov</h1>
     </header>
-    <StudySearch updateStudies={updateStudies} />
+    <StudySearch updateStudies={ updateStudies } />
       <div className="study-list">
         {studies.map((study, index) => (
             <Study key={index} index={index} study={study} />
