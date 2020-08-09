@@ -9,10 +9,10 @@ function Study({ index, study }) {
         status: {study.status} <br/>
         date: {study.date} <br/>
         brief_title: {study.brief_title} <br/>
-        url: {study.url} <br/>
+        url: <a href={study.url} target="_blank" rel="noopener noreferrer">{study.url}</a> <br/>
         drugs: {study.drugs} <br/>
-        brief_summary: {study.brief_summary} <br/>
-        eligibility_criteria: {study.eligibility_criteria} <br/>
+        {/* brief_summary: {study.brief_summary} <br/> */}
+        {/* eligibility_criteria: {study.eligibility_criteria} <br/> */}
         conditions: {study.conditions}          
       </p>
     </div>

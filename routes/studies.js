@@ -4,36 +4,35 @@ const router = express.Router();
 // Study Model
 const Study = require('../models/study');
 
-// @route   GET /api/studies
-// @desc    Fetch all studies
+// @route   GET /api/studies?limit&drug
+// @desc    Fetch `limit` amount of studies with drugs starting with `drug` 
 // @access  Public
 router.get('/', (req, res) => {
-    Study.find()
-        .limit(10)
-        .sort({ study_id: 1 })
-        .then(studies => res.json(studies))
-});
-
-// @route   GET /api/studies
-// @desc    Fetch all studies
-// @access  Public
-router.get('/all', (req, res) => {
-    Study.find()
-        .sort({ study_id: 1 })
-        .then(studies => res.json(studies))
+    let lim = parseInt(req.query.limit) || 10;
+    let drug = req.query.drug || '';
+    Study.find(
+        { "drugs": { $regex: `^${drug}` , $options : "i"} }, 
+    )
+    .limit(lim)
+    .sort({ "study_id": 1 })
+    .then(studies => res.json(studies))
 });
 
 // @route   GET /api/studies/:drug
-// @desc    Fetch studies matching the query 
+// @desc    Fetch studies containing given drug 
 // @access  Public
 router.get('/:drug', (req, res) => {
-    Study.find({ drugs: req.params.drug })
-        .sort({ study_id: 1 })
-        .then(studies => res.json(studies))
+    let lim = parseInt(req.query.limit) || 10;
+    Study.find(
+        { "drugs": { $regex: req.params.drug , $options : "i"} }, 
+    )
+    .limit(lim)
+    .sort({ "study_id": 1 })
+    .then(studies => res.json(studies))
 });
 
-// @route   POST /api/studies/:id
-// @desc    Delete a study 
+// @route   DEL /api/studies/:id
+// @desc    Delete a study given it's ID
 // @access  Public
 router.delete('/:id', (req, res) => {
     Study.findById(req.params.id)

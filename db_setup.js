@@ -16,10 +16,32 @@ const getSafe = (fn) => {
     }
 }
 
+/**
+ * The directory structure of the data as downloaded from https://clinicaltrials.gov/ is:
+ *  /AllPublicXML
+ *  ├── NCT0000xxxx
+ *  │   ├── NCT00000001.xml
+ *  │   ├── NCT00000002.xml
+ *  │   ├── NCT00000003.xml
+ *  │   ├── ...
+ *  ├── NCT0001xxxx
+ *  │   ├── NCT00010001.xml
+ *  │   ├── NCT00010002.xml
+ *  │   ├── NCT00010003.xml
+*   │   ├── ...
+ *  ├── ...
+ *  │   ├── ...
+ *  |   ├── ...
+ *  ├── NCT0449xxxx
+ *  │   ├── NCT04490001.xml
+ *  │   ├── NCT04490002.xml
+ *  │   ├── NCT04490003.xml
+ *  │   ├── ...
+ */
 let counter = 1;
 fs.readdirSync(root_dir).forEach(folder => {
     fs.readdirSync(root_dir + '/' + folder).forEach(file => {
-        const data = fs.readFile(root_dir + '/' + folder + '/' + file, (err, data) => { 
+        fs.readFile(root_dir + '/' + folder + '/' + file, (err, data) => { 
             parser.parseString(data, (err, result) => { 
                 const studyObject = result.clinical_study;
                 if(studyObject.study_type[0] != 'Interventional' || studyObject.intervention === undefined) 
@@ -32,15 +54,15 @@ fs.readdirSync(root_dir).forEach(folder => {
                     return;
 
                 const newStudy = new Study({
-                    "study_id": getSafe(() =>studyObject.id_info[0].nct_id[0]),
-                    "status": getSafe(() =>studyObject.overall_status[0]),
-                    "date": getSafe(() =>studyObject.verification_date[0]),
-                    "brief_title": getSafe(() =>studyObject.brief_title[0]),
-                    "url": getSafe(() =>studyObject.required_header[0].url[0]),
+                    "study_id": getSafe(() => studyObject.id_info[0].nct_id[0]),
+                    "status": getSafe(() => studyObject.overall_status[0]),
+                    "date": getSafe(() => studyObject.verification_date[0]),
+                    "brief_title": getSafe(() => studyObject.brief_title[0]),
+                    "url": getSafe(() => studyObject.required_header[0].url[0]),
                     "drugs": getSafe(() =>drug_array),
-                    "brief_summary": getSafe(() =>studyObject.brief_summary[0].textblock[0]),
+                    "brief_summary": getSafe(() => studyObject.brief_summary[0].textblock[0]),
                     "eligibility_criteria": getSafe(() => studyObject.eligibility[0].criteria[0].textblock[0]),
-                    "conditions": getSafe(() =>studyObject.condition)
+                    "conditions": getSafe(() => studyObject.condition)
                 }); 
 
                 // Insert in the DB
