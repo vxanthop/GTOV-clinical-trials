@@ -4,6 +4,9 @@ const router = express.Router();
 // Study Model
 const Study = require('../models/study');
 
+// Escape the regex string to avoid, among others, parentheses mismatch
+const escapeRegExp = str => str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+
 // @route   GET /api/studies?limit&drug
 // @desc    Fetch `limit` amount of studies with drugs starting with `drug` 
 // @access  Public
@@ -11,7 +14,7 @@ router.get('/', (req, res) => {
     let lim = parseInt(req.query.limit) || 10;
     let drug = req.query.drug || '';
     Study.find(
-        { "drugs": { $regex: `^${drug}` , $options : "i"} }, 
+        { "drugs": { $regex: escapeRegExp(`^${drug}`) , $options : "i"} }, 
     )
     .limit(lim)
     .sort({ "study_id": 1 })
@@ -24,7 +27,7 @@ router.get('/', (req, res) => {
 router.get('/:drug', (req, res) => {
     let lim = parseInt(req.query.limit) || 10;
     Study.find(
-        { "drugs": { $regex: req.params.drug , $options : "i"} }, 
+        { "drugs": { $regex: escapeRegExp(req.params.drug) , $options : "i"} }, 
     )
     .limit(lim)
     .sort({ "study_id": 1 })

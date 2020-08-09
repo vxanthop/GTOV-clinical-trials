@@ -13,7 +13,7 @@ function App() {
     }, []);
 
     const updateStudies = value => {
-        const encoded_uri = encodeURI(`/api/studies/${value}`)
+        const encoded_uri = `/api/studies/` + encodeURIComponent(value);
         fetch(encoded_uri)
             .then(res => res.json())
             .then(res => setStudies(res))

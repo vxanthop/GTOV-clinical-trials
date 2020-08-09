@@ -23,7 +23,7 @@ function StudySearch({ updateStudies }) {
 
     const handleChange = async e => {
         setValue(e.target.value)
-        const encoded_uri = encodeURI(`/api/drugs/${e.target.value}`)
+        const encoded_uri = `/api/drugs/` + encodeURIComponent(e.target.value);
         if(value.length > 0) {
             fetch(encoded_uri)
                 .then(res => res.json())
