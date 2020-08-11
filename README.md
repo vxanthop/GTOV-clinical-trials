@@ -8,4 +8,4 @@ CTGOV-02: Συχνά Φάρμακα για την αντιμετώπιση μι�
 
 Για τις ανάγκες της εφαρμογής χρησιμοποιήθηκε το dataset του Clinical Trials Gov: https://clinicaltrials.gov/.
 
-Για την ανάπτυξη της εφαρμογής χρησιμοποιήθηκαν: MongoDB, Express, React και Node.js.
+Για την ανάπτυξη της εφαρμογής χρησιμοποιήθηκαν: MongoDB, Express, ReactJS, Node.js και Materialize-CSS.

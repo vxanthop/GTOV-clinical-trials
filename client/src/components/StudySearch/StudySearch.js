@@ -1,25 +1,43 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import M from 'materialize-css';
 import './StudySearch.css';
 
 function StudySearch({ updateStudies }) {
     const [ value, setValue ] = useState([]);
-    const [ items, setitems ] = useState([]); // Items for autocomplete
+    const [ items, setitems ] = useState({}); // Items for autocomplete
+
     const formElem = useRef(null);
+    const inputElem = useRef(null);
+
+    useEffect(() => {
+        M.Autocomplete.init(inputElem.current, {
+            onAutocomplete: handleClick,
+            limit: 10,
+            minLength: 0
+        });
+    }, []);
+    
+    useEffect(() => {
+        M.Autocomplete.getInstance(inputElem.current).options.data = items;
+    }, [items]);
+
+
+    const extractData = input => input.map(obj => obj["drugs"]).flat().filter(item => item.toLowerCase().startsWith(value.toLowerCase()))
+    const prettify = str => str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+    const removeDuplicates = arr => [...(new Set(arr))];
+    const format = arr => {
+        const res = {}
+        arr.forEach(element => {
+            res[prettify(element)] = null;
+        });
+        return res
+    }
 
 	const handleSubmit = e => {
         e.preventDefault();
 		updateStudies(value);
         setitems([]);
     };
-    
-    const extractData = input => input.map(obj => obj["drugs"]).flat().filter(item => item.toLowerCase().startsWith(value.toLowerCase()))
-
-    const prettify = str => str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
-
-    const removeDuplicates = arr => {
-        const newArr = arr.map(item => prettify(item))
-        return [...(new Set(newArr))]
-    }
 
     const handleChange = async e => {
         setValue(e.target.value)
@@ -29,6 +47,7 @@ function StudySearch({ updateStudies }) {
                 .then(res => res.json())
                 .then(res => extractData(res))
                 .then(res => removeDuplicates(res))
+                .then(res => format(res))
                 .then(res => setitems(res))
         } else {
             setitems([]);
@@ -36,26 +55,33 @@ function StudySearch({ updateStudies }) {
     };
 
     const handleClick = async e => {
-        await setValue(e.target.id);
+        await setValue(inputElem.current.value);
         formElem.current.dispatchEvent(new Event('submit'));        
     };
 
-	return (
-        <div>
-            <form ref={formElem} onSubmit={handleSubmit}>
-                <input 
-                    type="text" 
-                    className="input" 
-                    value={value}
-                    placeholder="Filter studies..." 
-                    onChange={handleChange} 
-                />
-            </form>
-            <ul>
-                {items.map(item => <li key={item} id={item} onMouseDown={handleClick}>{item}</li>)}
-            </ul>
+    return (
+        <div className="row">
+            <div className="col s12">
+                <div className="row">
+                <form ref={formElem} onSubmit={handleSubmit}>
+                    <div className="input-field col s12">
+                        <i className="material-icons prefix">search</i>
+                        <i className="prefix"></i>
+                        <input 
+                            type="text" 
+                            autoComplete="off" //disable default browser autocomplete
+                            id="autocomplete-input" 
+                            className="autocomplete"
+                            onChange={handleChange}
+                            ref={inputElem}
+                        />
+                        <label htmlFor="autocomplete-input">Search...</label>
+                    </div>
+                </form>
+                </div>
+            </div>
         </div>
-	);
+    );
 }
 
 export default StudySearch;
