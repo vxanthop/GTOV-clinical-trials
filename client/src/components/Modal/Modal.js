@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import M from "materialize-css";
 import "materialize-css/dist/css/materialize.min.css";
 
-function Modal({ type, text, title }) {
+function Modal({ type, text, title, pick }) {
     const modalElem = useRef(null);
 
     useEffect(() => {
@@ -19,13 +19,13 @@ function Modal({ type, text, title }) {
     return (
         <>
         <a
-            className={`btn modal-trigger ${(type === 'done') ? "" : "red"}`}
-            data-target={`modal${title}`}
+            href="#!" className={`btn modal-trigger ${(type === 'done') ? "" : "red"}`}
+            data-target={`modal${title}${pick}`}
         >
         <i className="material-icons prefix">{type}</i>
         </a>
 
-        <div ref={modalElem} id={`modal${title}`} className="modal">
+        <div ref={modalElem} id={`modal${title}${pick}`} className="modal">
             <div className="modal-content">
                 <h4 style={{marginBottom: "50px"}}>{title}</h4>
                 <p>{text}</p>
