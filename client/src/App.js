@@ -24,10 +24,37 @@ function App() {
             .then(res => setStudies(res))
         };
         
+    const getHighlightedText = (text = '', highlight = '') => {
+        // Split text on highlight term, include term itself into parts, ignore case
+        const target = highlight.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // escape regex string 
+        const re = new RegExp(`(${target})`, 'gim');
+        const parts = text.split(re);
+        return {
+            changed: parts.length > 1,
+            res: parts.length > 1 ? 
+                <span> { parts.map((part, i) => 
+                    <span key={i} style={part.toLowerCase() === highlight.toLowerCase() ? { backgroundColor: "yellow" } : {} }>
+                        { part }
+                    </span>)
+                } </span> :
+                text
+        };
+    }
+
     const createFiltered = (studies, value) => {
         studies.forEach(study => {
-            study.e = (study.eligibility_criteria === undefined) ? false: study.eligibility_criteria.toLowerCase().includes(value.toLowerCase())
-            study.b = study.brief_summary.toLowerCase().includes(value.toLowerCase())
+            study.e = false;
+            study.b = false;
+            if(study.eligibility_criteria !== undefined){
+                const new_es = getHighlightedText(study.eligibility_criteria, value);
+                study.e = new_es.changed
+                study.eligibility_criteria = new_es.res;
+            }
+            if(study.brief_summary !== undefined){
+                const new_bs = getHighlightedText(study.brief_summary, value);
+                study.b = new_bs.changed;
+                study.brief_summary = new_bs.res;
+            }
         });
         return studies
     }
