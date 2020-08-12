@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import Study from '../Study/Study';
 import Pagination from '../Pagination/Pagination';
-
+import './StudyList.css'
 
 function StudyList({ studies, pick }) {
     const [ currentPage, setCurrentPage ] = useState(1);
     const [ studyPage, setStudyPage ] = useState([]);
-    const [ studiesPerPage ] = useState(10);
+    const [ studiesPerPage ] = useState(20);
 
     const pages = Math.ceil(studies.length / studiesPerPage);
 
@@ -24,6 +24,10 @@ function StudyList({ studies, pick }) {
         const indexOfFirstStudy = indexOfLastStudy - studiesPerPage;
         setStudyPage(studies.slice(indexOfFirstStudy, indexOfLastStudy));
     }, [currentPage, studiesPerPage, studies])
+
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [studies])
 
     return (
         <>
@@ -44,7 +48,15 @@ function StudyList({ studies, pick }) {
                 {(studyPage.length > 0) && studyPage.map(study => <Study key={study.study_id} study={study} pick={pick} />)}
             </tbody>
         </table>
-        {(pages > 0) ? <Pagination pages={pages} paginate={paginate} currentPage={currentPage} /> : ""}
+        {(pages > 0) ? (
+            <div id="align-div">
+                <span></span>
+                <Pagination pages={pages} paginate={paginate} currentPage={currentPage} /> 
+                <a id="scroll-up-btn" className="btn-floating btn-large" href="#top">
+                    <i className="material-icons">keyboard_arrow_up</i>
+                </a>
+            </div>) : ""
+        }
         </>
     );
 }

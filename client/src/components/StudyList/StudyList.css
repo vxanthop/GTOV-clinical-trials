@@ -1,0 +1,15 @@
+#align-div{
+    display:grid;
+    align-items: center;
+    margin-top: 50px;
+}
+
+#scroll-up-btn {
+    grid-column: 3;
+    margin-left: auto;
+    background-color: #ee6e73;
+}
+
+span {
+    grid-column: 1;
+}

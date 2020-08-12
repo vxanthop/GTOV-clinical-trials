@@ -18,7 +18,7 @@ function Modal({ type, text, title, pick, study_id }) {
     return (
         <>
             <a
-                href="#!" className={`btn modal-trigger ${(type === 'done') ? "" : "red"}`}
+                href="#!" className={`btn modal-trigger ${(type === 'done') ? "teal" : "red"}`}
                 data-target={`modal-${study_id}-${pick}`}
             >
             <i className="material-icons prefix">{type}</i>

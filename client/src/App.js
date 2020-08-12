@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import StudySearch from './components/StudySearch/StudySearch';
-import StudyList from './components/StudyList/StudyList';
+import Tabs from './components/Tabs/Tabs';
 import Navbar from './components/Navbar/Navbar';
 
 import './App.css';
@@ -63,20 +63,12 @@ function App() {
         <div className="app">
             <Navbar />
             <StudySearch updateStudies={ updateStudies } />
-            <div className="row">
-                <div className="col s12">
-                    <ul className="tabs tabs-fixed-width swipeable">
-                        <li className="tab col s3"><a className="active" href="#a">All</a></li>
-                        <li className="tab col s3"><a href="#e">Eligibility</a></li>
-                        <li className="tab col s3"><a href="#b">Brief Summary</a></li>
-                        <li className="tab col s3"><a href="#eb">Eligibility & Brief Summary</a></li>
-                    </ul>
-                </div>
-                <div id="a" className="col s12">  <StudyList studies={ studies } pick="a" />    </div>
-                <div id="e" className="col s12">  <StudyList studies={ studies.filter(study => study.e) } pick="e" />  </div>
-                <div id="b" className="col s12">  <StudyList studies={ studies.filter(study => study.b) } pick="b" />  </div> 
-                <div id="eb" className="col s12"> <StudyList studies={ studies.filter(study => study.e && study.b) } pick="eb" /> </div>
-            </div>
+            <Tabs 
+                all_studies={studies} 
+                e_studies={studies.filter(study => study.e)} 
+                b_studies={studies.filter(study => study.b)} 
+                eb_studies={studies.filter(study => study.e && study.b)}
+            />
         </div>
     );
 }

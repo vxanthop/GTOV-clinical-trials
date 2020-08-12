@@ -18,32 +18,20 @@ function StudySearch({ updateStudies }) {
     }, []);
     
     useEffect(() => {
-        M.Autocomplete.getInstance(inputElem.current).options.data = items;
-    }, [items]);
+        const extractData = input => input.map(obj => obj["drugs"]).flat().filter(item => item.toLowerCase().startsWith(value.toLowerCase()))
+        const prettify = str => str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+        
+        // prettify before filtering to handle case insensitive case
+        const removeDuplicates = arr => [...(new Set(arr.map(el => prettify(el))))]; 
+        const format = arr => {
+            const res = {}
+            arr.forEach(element => {
+                res[element] = null;
+            });
+            return res
+        }
 
-
-    const extractData = input => input.map(obj => obj["drugs"]).flat().filter(item => item.toLowerCase().startsWith(value.toLowerCase()))
-    const prettify = str => str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
-    
-    // prettify before filtering to handle case insensitive case
-    const removeDuplicates = arr => [...(new Set(arr.map(el => prettify(el))))]; 
-    const format = arr => {
-        const res = {}
-        arr.forEach(element => {
-            res[element] = null;
-        });
-        return res
-    }
-
-	const handleSubmit = e => {
-        e.preventDefault();
-		updateStudies(value);
-        setitems([]);
-    };
-    
-    const handleChange = async e => {
-        setValue(e.target.value)
-        const encoded_uri = `/api/drugs/` + encodeURIComponent(e.target.value);
+        const encoded_uri = `/api/drugs/` + encodeURIComponent(value);
         if(value.length > 0) {
             fetch(encoded_uri)
             .then(res => res.json())
@@ -54,11 +42,26 @@ function StudySearch({ updateStudies }) {
         } else {
             setitems([]);
         }
+    }, [value]);
+
+    useEffect(() => {
+        M.Autocomplete.getInstance(inputElem.current).options.data = items;
+    }, [items]);
+
+
+	const handleSubmit = e => {
+        e.preventDefault();
+		updateStudies(value);
+        setitems([]);
+    };
+    
+    const handleChange = async e => {
+        setValue(e.target.value)
     };
     
     const handleClick = () => {
         setValue(inputElem.current.value);
-        formElem.current.dispatchEvent(new Event('submit'));    
+        formElem.current.dispatchEvent(new Event('submit', { cancelable: true }));    
     };
 
     return (

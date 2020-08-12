@@ -1,0 +1,4 @@
+.pagination {
+    grid-column: 2;
+    margin-left: 94px; /*I hate CSS so much*/
+}
