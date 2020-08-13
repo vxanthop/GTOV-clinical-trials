@@ -1,8 +1,7 @@
 const express = require('express');
-const router = express.Router();
-
-// Study Model
 const Study = require('../models/study');
+
+const router = express.Router();
 
 // Escape the regex string to avoid, among others, parentheses mismatch
 const escapeRegExp = str => str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
@@ -11,8 +10,8 @@ const escapeRegExp = str => str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "
 // @desc    Fetch `limit` amount of studies with drugs starting with `drug` 
 // @access  Public
 router.get('/', (req, res) => {
-    let lim = parseInt(req.query.limit);
-    let drug = req.query.drug || '';
+    const lim = parseInt(req.query.limit, 10);
+    const drug = req.query.drug || '';
     Study.find(
         { "drugs": { $regex: escapeRegExp(`^${drug}`) , $options : "i"} }, 
     )
@@ -25,7 +24,7 @@ router.get('/', (req, res) => {
 // @desc    Fetch studies containing given drug 
 // @access  Public
 router.get('/:drug', (req, res) => {
-    let lim = parseInt(req.query.limit);
+    const lim = parseInt(req.query.limit, 10);
     Study.find(
         { "drugs": { $regex: escapeRegExp(req.params.drug) , $options : "i"} }, 
     )

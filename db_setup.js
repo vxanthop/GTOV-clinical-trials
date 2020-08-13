@@ -1,11 +1,10 @@
 const fs = require('fs');
-const path = require('path');
 const xml2js = require('xml2js'); 
+const Study = require('./models/study');
 
 const parser = new xml2js.Parser({ trim: true, normalize: true }); 
-const root_dir = './data/AllPublicXML';
+const rootDir = './data/AllPublicXML';
 
-const Study = require('./models/study');
 
 // A trick to handle undefined errors from missing data 
 const getSafe = (fn) => {
@@ -39,18 +38,18 @@ const getSafe = (fn) => {
  *  │   ├── ...
  */
 let counter = 1;
-fs.readdirSync(root_dir).forEach(folder => {
-    fs.readdirSync(root_dir + '/' + folder).forEach(file => {
-        fs.readFile(root_dir + '/' + folder + '/' + file, (err, data) => { 
+fs.readdirSync(rootDir).forEach(folder => {
+    fs.readdirSync(`${rootDir}/${folder}`).forEach(file => {
+        fs.readFile(`${rootDir}/${folder}/${file}`, (error, data) => { 
             parser.parseString(data, (err, result) => { 
                 const studyObject = result.clinical_study;
-                if(studyObject.study_type[0] != 'Interventional' || studyObject.intervention === undefined) 
+                if(studyObject.study_type[0] !== 'Interventional' || studyObject.intervention === undefined) 
                     return;
                 
-                const drug_array = studyObject.intervention
-                                    .filter(item => item.intervention_type == 'Drug')
+                const drugArray = studyObject.intervention
+                                    .filter(item => item.intervention_type === 'Drug')
                                     .map(item => item.intervention_name[0]);
-                if(drug_array.length == 0)
+                if(drugArray.length === 0)
                     return;
 
                 const newStudy = new Study({
@@ -59,7 +58,7 @@ fs.readdirSync(root_dir).forEach(folder => {
                     "date": getSafe(() => studyObject.verification_date[0]),
                     "brief_title": getSafe(() => studyObject.brief_title[0]),
                     "url": getSafe(() => studyObject.required_header[0].url[0]),
-                    "drugs": getSafe(() =>drug_array),
+                    "drugs": getSafe(() => drugArray),
                     "brief_summary": getSafe(() => studyObject.brief_summary[0].textblock[0]),
                     "eligibility_criteria": getSafe(() => studyObject.eligibility[0].criteria[0].textblock[0]),
                     "conditions": getSafe(() => studyObject.condition)

@@ -34,15 +34,25 @@ Server-Side: NodeJS, ExpressJS, MongoDB
 
    ```bash
    $ sudo apt update
-   $ sudo apt install git nodejs npm 
+   $ sudo apt install git git-lfs nodejs npm 
+   ```
+
+   
+   
+2. Clone the repository locally
+
+   ```bash
+   $ git clone https://github.com/vilaras/Appathon-NTUA.git
+   $ cd Appathon-NTUA
    ```
 
    
 
-2. Initialize the database from the mongodump located in `data/mongodump/`
+
+3. Initialize the database from the mongodump located in `data/mongodump/`
 
    ```bash
-   $ mongodump -d appathon_ntua data/mongodump/
+   $ mongorestore -d appathon_ntua data/mongodump/appathon_ntua
    ```
    
    or download the XML zip from https://clinicaltrials.gov/ct2/resources/download#DownloadAllData, extract inside the `data/` folder, [start the Mongo server](#Usage) and then run:
@@ -53,19 +63,14 @@ Server-Side: NodeJS, ExpressJS, MongoDB
    
    
    
-3. Clone the repository locally
+
+
+4. Install package dependencies for server and client
 
    ```bash
-   $ git clone https://github.com/vilaras/Appathon-NTUA.git
-   $ cd Appathon-NTUA
-   ```
-
-   
-
-4. Install package dependencies
-
-   ```bash
-   $ npm run install-all-deps 
+   $ npm install
+   $ cd client
+   $ npm install 
    ```
 
 
@@ -82,7 +87,7 @@ If any error occures consult the official documentation https://docs.mongodb.com
 
 ### Start the Development Servers
 
-The application frontend is built with ReactJS and the backend with ExpressJS. Each run their own development server indipendently in different ports. We have set up for the frontend server to run in port 3000 and for the backend in port 5000. If you want to change that, edit the `config/config.env` and `client/.env`files respectively. To start the development servers simply run:
+The application frontend is built with ReactJS and the backend with ExpressJS. Each run their own development server indipendently in different ports. We have set up for the frontend server to run in port 3000 and for the backend in port 5000. If you want to change that, edit the `config/config.env` and `client/.env`files respectively. To start the development servers simply run from the root folder:
 
 ```bash
 $ npm run dev
