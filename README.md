@@ -1,11 +1,92 @@
-# Appathon-NTUA
+# :pill: Appathon-NTUA  Statistical Analysis on the GTOV Dataset
 
-CTGOV-02: Συχνά Φάρμακα για την αντιμετώπιση μιας συγκεκριμένης Ασθένειας
+Web application project for the 2019-2020 Internet and Applications course @ ECE-NTUA.
 
-Θα δημιουργηθεί μια δικτυακή εφαρμογή η οποία θα παίρνει ως input το όνομα ενός φαρμάκου και θα εντοπίζει τις κλινικές μελέτες με το φάρμακο αυτό. Ακολούθως θα εξετάζει κατά πόσο το φάρμακο αυτό αναφέρεται στην σύνοψη της κλινικής μελέτης και τα κριτήρια καταλληλότητας. 
 
-Τέλος το σύστημα θα παρουσιάζει τα άρθρα στα οποία το φάρμακο υπάρχει και στα τρία παραπάνω πεδία (interventions, brief summary, eligibility criteria) καθώς επίσης και αυτά στα οποία δεν υπάρχει είτε στο ένα (brief summary) είτε στο άλλο (eligibility criteria).
 
-Για τις ανάγκες της εφαρμογής χρησιμοποιήθηκε το dataset του Clinical Trials Gov: https://clinicaltrials.gov/.
+## :memo: Description
 
-Για την ανάπτυξη της εφαρμογής χρησιμοποιήθηκαν: MongoDB, Express, ReactJS, Node.js και Materialize-CSS.
+Find all the clinical trials using a specified drug. Furthermore check if the drug is mentioned in the eligibility criteria and the brief summary of the clinical trial.
+
+
+
+Clinical Trials Gov Dataset: https://clinicaltrials.gov/.
+
+
+
+## :computer: Technologies used:
+
+Client-side: ReactJS, MaterializeCSS
+
+Server-Side: NodeJS, ExpressJS, MongoDB
+
+
+
+## **:hammer:** Installation (Ubuntu)
+
+1. Start by installing the system requirements 
+
+   By default MongoDB is not available in Ubuntu default repository so you will have to add the official MongoDB repository in your system manually. Follow the installation instructions found here https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/.
+
+   
+
+   For the rest of the packages:
+
+   ```bash
+   $ sudo apt update
+   $ sudo apt install git nodejs npm 
+   ```
+
+   
+
+2. Initialize the database from the mongodump located in `data/mongodump/`
+
+   ```bash
+   $ mongodump -d appathon_ntua data/mongodump/
+   ```
+   
+   or download the XML zip from https://clinicaltrials.gov/ct2/resources/download#DownloadAllData, extract inside the `data/` folder, [start the Mongo server](#Usage) and then run:
+   
+   ``` bash
+   $ nodejs db_setup.js 
+   ```
+   
+   
+   
+3. Clone the repository locally
+
+   ```bash
+   $ git clone https://github.com/vilaras/Appathon-NTUA.git
+   $ cd Appathon-NTUA
+   ```
+
+   
+
+4. Install package dependencies
+
+   ```bash
+   $ npm run install-all-deps 
+   ```
+
+
+
+##  :tada:Usage
+
+### Start the MongoDB process 
+
+```bash
+$ sudo systemctl start mongod
+```
+
+If any error occures consult the official documentation https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/.
+
+### Start the Development Servers
+
+The application frontend is built with ReactJS and the backend with ExpressJS. Each run their own development server indipendently in different ports. We have set up for the frontend server to run in port 3000 and for the backend in port 5000. If you want to change that, edit the `config/config.env` and `client/.env`files respectively. To start the development servers simply run:
+
+```bash
+$ npm run dev
+```
+
+You are  ready to go! 
+

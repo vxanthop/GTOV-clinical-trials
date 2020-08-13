@@ -3,7 +3,7 @@ const path = require('path');
 const xml2js = require('xml2js'); 
 
 const parser = new xml2js.Parser({ trim: true, normalize: true }); 
-const root_dir = '../data/AllPublicXML';
+const root_dir = './data/AllPublicXML';
 
 const Study = require('./models/study');
 
@@ -18,7 +18,7 @@ const getSafe = (fn) => {
 
 /**
  * The directory structure of the data as downloaded from https://clinicaltrials.gov/ is:
- *  /AllPublicXML
+ *  /data/AllPublicXML
  *  ├── NCT0000xxxx
  *  │   ├── NCT00000001.xml
  *  │   ├── NCT00000002.xml

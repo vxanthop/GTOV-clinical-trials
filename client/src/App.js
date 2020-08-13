@@ -31,13 +31,12 @@ function App() {
         const parts = text.split(re);
         return {
             changed: parts.length > 1,
-            res: parts.length > 1 ? 
+            res: (parts.length > 1) ? 
                 <span> { parts.map((part, i) => 
                     <span key={i} style={part.toLowerCase() === highlight.toLowerCase() ? { backgroundColor: "yellow" } : {} }>
                         { part }
                     </span>)
-                } </span> :
-                text
+                } </span> : text
         };
     }
 
