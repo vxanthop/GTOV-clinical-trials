@@ -9,6 +9,21 @@ function StudySearch({ updateStudies }) {
     const formElem = useRef(null);
     const inputElem = useRef(null);
 
+    const handleSubmit = e => {
+        e.preventDefault();
+        updateStudies(value);
+        setitems([]);
+    };
+    
+    const handleChange = async e => {
+        setValue(e.target.value)
+    };
+    
+    const handleClick = () => {
+        setValue(inputElem.current.value);
+        formElem.current.dispatchEvent(new Event('submit', { cancelable: true }));    
+    };
+
     useEffect(() => {
         M.Autocomplete.init(inputElem.current, {
             onAutocomplete: handleClick,
@@ -31,7 +46,7 @@ function StudySearch({ updateStudies }) {
             return res
         }
 
-        const encoded_uri = `/api/drugs/` + encodeURIComponent(value);
+        const encoded_uri = `/api/drugs/${encodeURIComponent(value)}`;
         if(value.length > 0) {
             fetch(encoded_uri)
             .then(res => res.json())
@@ -49,20 +64,6 @@ function StudySearch({ updateStudies }) {
     }, [items]);
 
 
-	const handleSubmit = e => {
-        e.preventDefault();
-		updateStudies(value);
-        setitems([]);
-    };
-    
-    const handleChange = async e => {
-        setValue(e.target.value)
-    };
-    
-    const handleClick = () => {
-        setValue(inputElem.current.value);
-        formElem.current.dispatchEvent(new Event('submit', { cancelable: true }));    
-    };
 
     return (
         <div className="row">
@@ -74,7 +75,7 @@ function StudySearch({ updateStudies }) {
                         <i className="prefix"></i>
                         <input 
                             type="text" 
-                            autoComplete="off" //disable default browser autocomplete
+                            autoComplete="off"  // disable default browser autocomplete
                             id="autocomplete-input" 
                             className="autocomplete"
                             onChange={handleChange}
