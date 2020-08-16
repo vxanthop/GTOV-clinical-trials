@@ -1,7 +1,8 @@
 import React from 'react';
 import StudyList from '../StudyList/StudyList'
+import PreLoader from '../PreLoader/PreLoader';
 
-function Tabs({ all_studies, e_studies, b_studies, eb_studies }) {
+function Tabs({ all_studies, e_studies, b_studies, eb_studies, loading }) {
     return (
         <div className="row">
             <div className="col s12">
@@ -28,17 +29,33 @@ function Tabs({ all_studies, e_studies, b_studies, eb_studies }) {
                     </li>
                 </ul>
             </div>
-            <div id="a" className="col s12">
-                <StudyList studies={all_studies} pick="a" />    
+            <div id="a" className="col s12 center">
+                {(loading) ? (
+                    <PreLoader />
+                ) : (
+                    <StudyList studies={all_studies} pick="a" />
+                )}
             </div>
-            <div id="e" className="col s12">
-                <StudyList studies={e_studies} pick="e" />  
+            <div id="e" className="col s12 center">
+                {(loading) ? (
+                    <PreLoader />
+                ) : (
+                    <StudyList studies={e_studies} pick="e" />  
+                )}
             </div>
-            <div id="b" className="col s12">
-                <StudyList studies={b_studies} pick="b" />  
+            <div id="b" className="col s12 center">
+                {(loading) ? (
+                    <PreLoader />
+                ) : (
+                    <StudyList studies={b_studies} pick="b" />  
+                )}
             </div> 
-            <div id="eb" className="col s12">
-                <StudyList studies={eb_studies} pick="eb" /> 
+            <div id="eb" className="col s12 center">
+                {(loading) ? (
+                    <PreLoader />
+                ) : (
+                    <StudyList studies={eb_studies} pick="eb" /> 
+                )}
             </div>
         </div>
     );

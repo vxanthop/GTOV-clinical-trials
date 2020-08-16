@@ -7,6 +7,7 @@ import './App.css';
 
 function App() {
     const [ studies, setStudies ] = useState([]);
+    const [ loading, setLoading ] = useState(false);
 
     const prettify = str => str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
     const removeDuplicates = study => {
@@ -16,13 +17,15 @@ function App() {
     };
 
     const updateStudies = value => {
+        setLoading(true);
         const encoded_uri = `/api/studies/` + encodeURIComponent(value);
         fetch(encoded_uri)
             .then(res => res.json())
             .then(res => res.map(study => removeDuplicates(study)))
             .then(res => createFiltered(res, value))
             .then(res => setStudies(res))
-        };
+            .then(() => setLoading(false))
+    };
         
     const getHighlightedText = (text = '', highlight = '') => {
         // Split text on highlight term, include term itself into parts, ignore case
@@ -61,12 +64,13 @@ function App() {
     return (
         <div className="app">
             <Navbar />
-            <StudySearch updateStudies={ updateStudies } />
+            <StudySearch updateStudies={updateStudies} />
             <Tabs 
                 all_studies={studies} 
                 e_studies={studies.filter(study => study.e)} 
                 b_studies={studies.filter(study => study.b)} 
                 eb_studies={studies.filter(study => study.e && study.b)}
+                loading = {loading}
             />
         </div>
     );

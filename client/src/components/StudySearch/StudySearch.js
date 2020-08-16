@@ -13,6 +13,7 @@ function StudySearch({ updateStudies }) {
         e.preventDefault();
         updateStudies(value);
         setitems([]);
+        M.Autocomplete.getInstance(inputElem.current).close();
     };
     
     const handleChange = async e => {

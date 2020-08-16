@@ -16,9 +16,9 @@ Clinical Trials Gov Dataset: https://clinicaltrials.gov/.
 
 ## :computer: Technologies used:
 
-Client-side: ReactJS, MaterializeCSS, ESLint
+Client-side: React.js, MaterializeCSS, ESLint
 
-Server-Side: NodeJS, ExpressJS, MongoDB, ESLint
+Server-Side: Node.js, Express.js, MongoDB, ESLint
 
 
 

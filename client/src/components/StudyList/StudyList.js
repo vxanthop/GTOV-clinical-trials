@@ -12,12 +12,11 @@ function StudyList({ studies, pick }) {
 
     // Change page
     const paginate = pageNumber => {
-        let resPage; 
         if(pageNumber < 1)
-            resPage = 1;
+            pageNumber = 1;
         if(pageNumber > pages)
-            resPage = pages;
-        setCurrentPage(resPage);
+            pageNumber = pages;
+        setCurrentPage(pageNumber);
     }
 
     useEffect(() => {

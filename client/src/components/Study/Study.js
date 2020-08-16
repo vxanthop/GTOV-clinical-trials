@@ -37,7 +37,10 @@ function Study({ study, pick }) {
                 />
             </td>
             <td className={(study.status === "Completed" || study.status === "Terminated") ? study.status : "Other"}>
-                {study.status}
+                <>
+                {study.status} 
+                {(study.date.split(' ')[1] == new Date().getFullYear()) ? <><br/> <span className="new badge blue"></span></> : ""}
+                </>
             </td>
         </tr>
     );
