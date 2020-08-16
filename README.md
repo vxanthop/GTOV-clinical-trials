@@ -34,26 +34,19 @@ Server-Side: Node.js, Express.js, MongoDB, ESLint
 
    ```bash
    $ sudo apt update
-   $ sudo apt install git git-lfs nodejs npm 
+   $ sudo apt install git nodejs npm 
    ```
 
    
    
 2. Clone the repository locally
 
-   It will take a little bit beacuse of the database dump.
-   
    ```bash
    $ git clone https://github.com/vilaras/Appathon-NTUA.git
    $ cd Appathon-NTUA
    ```
    
-   If you plan not to use the database dump to build the database you can skip it while cloning the repository:
-
-   ```bash
-   $ GIT_LFS_SKIP_SMUDGE=1 git clone https://github.com/vilaras/Appathon-NTUA.git
-   $ cd Appathon-NTUA
-   ```
+   
    
 3. Install package dependencies for server and client
 
@@ -63,9 +56,11 @@ Server-Side: Node.js, Express.js, MongoDB, ESLint
    $ npm install 
    ```
 
+   
+
 4. Initialize the database in one of the following two ways:
 
-   * Directly From the mongodump located in `data/mongodump/appathon_ntua` by running:
+   * Download the mongodump from https://www.dropbox.com/sh/bgdz7289qs1t4t0/AAAwLr-rZxkCPQCeEE7uXxJTa?dl=0, extract inside `data/` and then run:
 
        ```bash
        $ mongorestore -d appathon_ntua data/mongodump/appathon_ntua
@@ -78,6 +73,8 @@ Server-Side: Node.js, Express.js, MongoDB, ESLint
        ```
        
        from the root folder to start the server and finally open a browser and enter http://localhost:5000/populate_db/. This will run a script which parses all the XML files and builds the database from scratch.
+       
+       
 
 
 ## :tada: Usage
@@ -88,7 +85,9 @@ Server-Side: Node.js, Express.js, MongoDB, ESLint
 $ sudo systemctl start mongod
 ```
 
-If any error occures consult the official documentation https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/.
+If any error occures, consult the official documentation https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/.
+
+
 
 ### Start the Development Servers
 

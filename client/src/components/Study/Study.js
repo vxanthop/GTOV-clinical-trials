@@ -39,7 +39,7 @@ function Study({ study, pick }) {
             <td className={(study.status === "Completed" || study.status === "Terminated") ? study.status : "Other"}>
                 <>
                 {study.status} 
-                {(study.date.split(' ')[1] == new Date().getFullYear()) ? <><br/> <span className="new badge blue"></span></> : ""}
+                {(parseInt(study.date.split(' ')[1]) === new Date().getFullYear()) ? <><br/> <span className="new badge blue"></span></> : ""}
                 </>
             </td>
         </tr>
