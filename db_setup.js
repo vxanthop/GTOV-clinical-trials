@@ -2,7 +2,7 @@ const fs = require('fs');
 const xml2js = require('xml2js'); 
 const Study = require('./models/study');
 
-const rootDir = '../data/AllPublicXML';
+const rootDir = './data/AllPublicXML';
 
 // A trick to handle undefined errors from missing data 
 const getSafe = fn => {
@@ -65,9 +65,10 @@ const format = async xml => {
 
 let counter = 1;
 async function runner() {
-    for await (const folder of await fs.promises.readdir(rootDir)) {
-        for await (const file of await fs.promises.readdir(`${rootDir}/${folder}`)) {
-            const xml = await fs.promises.readFile(`${rootDir}/${folder}/${file}`, {encoding: 'utf-8'})
+    for await (const dirent of await fs.promises.readdir(rootDir, { withFileTypes: true })) {
+        if(dirent.isFile()) continue;
+        for await (const file of await fs.promises.readdir(`${rootDir}/${dirent.name}`)) {
+            const xml = await fs.promises.readFile(`${rootDir}/${dirent.name}/${file}`, {encoding: 'utf-8'})
             const newStudy = await format(xml)
             if(newStudy !== undefined) { // If format actually returns an object
                 try {

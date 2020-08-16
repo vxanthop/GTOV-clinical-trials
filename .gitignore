@@ -1,3 +1,6 @@
 node_modules/
 client.node_modules/
 .eslintrc.js
+data/AllPublicXML/
+data/AllPublicXML.zip
+.vscode/

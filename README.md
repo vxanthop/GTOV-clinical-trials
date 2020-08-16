@@ -22,7 +22,7 @@ Server-Side: Node.js, Express.js, MongoDB, ESLint
 
 
 
-## **:hammer:** Installation (Ubuntu)
+## :hammer: Installation (Ubuntu)
 
 1. Start by installing the system requirements 
 
@@ -48,10 +48,22 @@ Server-Side: Node.js, Express.js, MongoDB, ESLint
    $ cd Appathon-NTUA
    ```
    
+   If you plan not to use the database dump to build the database you can skip it while cloning the repository:
+
+   ```bash
+   $ GIT_LFS_SKIP_SMUDGE=1 git clone https://github.com/vilaras/Appathon-NTUA.git
+   $ cd Appathon-NTUA
+   ```
    
+3. Install package dependencies for server and client
 
+   ```bash
+   $ npm install
+   $ cd client
+   $ npm install 
+   ```
 
-3. Initialize the database in one of the following two ways:
+4. Initialize the database in one of the following two ways:
 
    * Directly From the mongodump located in `data/mongodump/appathon_ntua` by running:
 
@@ -66,18 +78,6 @@ Server-Side: Node.js, Express.js, MongoDB, ESLint
        ```
        
        from the root folder to start the server and finally open a browser and enter http://localhost:5000/populate_db/. This will run a script which parses all the XML files and builds the database from scratch.
-       
-       
-
-
-4. Install package dependencies for server and client
-
-   ```bash
-   $ npm install
-   $ cd client
-   $ npm install 
-   ```
-
 
 
 ## :tada: Usage
