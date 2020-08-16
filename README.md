@@ -45,7 +45,7 @@ Server-Side: Node.js, Express.js, MongoDB, ESLint
    
    ```bash
    $ git clone https://github.com/vilaras/Appathon-NTUA.git
-$ cd Appathon-NTUA
+   $ cd Appathon-NTUA
    ```
    
    
@@ -80,7 +80,7 @@ $ cd Appathon-NTUA
 
 
 
-##  :tada:Usage
+## :tada: Usage
 
 ### Start the MongoDB process 
 
