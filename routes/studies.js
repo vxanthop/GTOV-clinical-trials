@@ -11,9 +11,9 @@ const escapeRegExp = str => str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "
 // @access  Public
 router.get('/', (req, res) => {
     const lim = parseInt(req.query.limit, 10);
-    const drug = req.query.drug || '';
+    const drug_prefix = req.query.drug_prefix || '';
     Study.find(
-        { "drugs": { $regex: escapeRegExp(`^${drug}`) , $options : "i"} }, 
+        { "drugs": { $regex: escapeRegExp(`^${drug_prefix}`) , $options : "i"} }, 
     )
     .limit(lim)
     .sort({ "study_id": 1 })
@@ -31,15 +31,6 @@ router.get('/:drug', (req, res) => {
     .limit(lim)
     .sort({ "study_id": 1 })
     .then(studies => res.json(studies))
-});
-
-// @route   DEL /api/studies/:id
-// @desc    Delete a study given it's ID
-// @access  Public
-router.delete('/:id', (req, res) => {
-    Study.findById(req.params.id)
-        .then(study => study.remove().then(() => res.json({success: true})))
-        .catch(err => res.status(404).json({success: false}));
 });
 
 module.exports = router;
