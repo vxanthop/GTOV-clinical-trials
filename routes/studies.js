@@ -10,7 +10,7 @@ const escapeRegExp = str => str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "
 // @desc    Fetch `limit` amount of studies 
 // @access  Public
 router.get('/', (req, res) => {
-    const lim = parseInt(req.query.limit, 10);
+    const lim = parseInt(req.query.limit, 10) || 500;
     Study.find()
         .limit(lim)
         .sort({ "study_id": 1 })
@@ -21,7 +21,7 @@ router.get('/', (req, res) => {
 // @desc    Fetch studies containing given drug 
 // @access  Public
 router.get('/:drug', (req, res) => {
-    const lim = parseInt(req.query.limit, 10);
+    const lim = parseInt(req.query.limit, 10) || 500;
     Study.find(
         { "drugs": { $regex: escapeRegExp(req.params.drug) , $options : "i"} }, 
     )
