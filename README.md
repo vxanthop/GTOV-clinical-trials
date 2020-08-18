@@ -58,16 +58,18 @@ Server-Side: Node.js, Express.js, MongoDB, ESLint
 
    
 
-4. Initialize the database in one of the following two ways:
+4. Initialize the database:
+
+      First of all [start the MongoDB process](#start-the-mongodb-process). Then choose one of the following two ways to initialize the database:
 
    * Download the mongodump from https://www.dropbox.com/sh/bgdz7289qs1t4t0/AAAwLr-rZxkCPQCeEE7uXxJTa?dl=0, extract inside `data/` and then run:
-
+   
        ```bash
-       $ mongorestore -d appathon_ntua data/mongodump/appathon_ntua
+    $ mongorestore -d appathon_ntua data/mongodump/appathon_ntua
        ```
 
     *  Download all the XML files from https://clinicaltrials.gov/AllPublicXML.zip, extract inside `data/`, run:
-
+   
        ```bash
        $ npm start
        ```
