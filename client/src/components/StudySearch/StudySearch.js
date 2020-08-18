@@ -50,11 +50,11 @@ function StudySearch({ updateStudies }) {
         const encoded_uri = `/api/drugs/${encodeURIComponent(value)}`;
         if(value.length > 0) {
             fetch(encoded_uri)
-            .then(res => res.json())
-            .then(res => extractData(res))
-            .then(res => removeDuplicates(res))
-            .then(res => format(res))
-            .then(res => setitems(res))
+                .then(res => res.json())
+                .then(res => extractData(res))
+                .then(res => removeDuplicates(res))
+                .then(res => format(res))
+                .then(res => setitems(res))
         } else {
             setitems([]);
         }

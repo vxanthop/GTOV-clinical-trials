@@ -22,7 +22,7 @@ function App() {
         fetch(encoded_uri)
             .then(res => res.json())
             .then(res => res.map(study => removeDuplicates(study)))
-            .then(res => createFiltered(res, value))
+            .then(res => createFilters(res, value))
             .then(res => setStudies(res))
             .then(() => setLoading(false))
     };
@@ -43,7 +43,7 @@ function App() {
         };
     }
 
-    const createFiltered = (studies, value) => {
+    const createFilters = (studies, value) => {
         studies.forEach(study => {
             study.e = false;
             study.b = false;
