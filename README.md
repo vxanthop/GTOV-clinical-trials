@@ -62,13 +62,13 @@ Server-Side: Node.js, Express.js, MongoDB, ESLint
 
       First of all [start the MongoDB process](#start-the-mongodb-process). Then choose one of the following two ways to initialize the database:
 
-   * Download the mongodump from https://www.dropbox.com/sh/bgdz7289qs1t4t0/AAAwLr-rZxkCPQCeEE7uXxJTa?dl=0, extract inside `data/` and then run:
+   * Download the mongodump from https://www.dropbox.com/sh/bgdz7289qs1t4t0/AAAwLr-rZxkCPQCeEE7uXxJTa?dl=0, extract inside the `data/` folder and then run:
    
        ```bash
         $ mongorestore -d appathon_ntua data/mongodump/appathon_ntua
        ```
 
-    *  Download all the XML files from https://clinicaltrials.gov/AllPublicXML.zip, extract inside `data/`, run:
+    *  Download all the XML files from https://clinicaltrials.gov/AllPublicXML.zip, extract inside the `data/` folder, run:
    
        ```bash
        $ npm start
@@ -93,7 +93,7 @@ If any error occures, consult the official documentation https://docs.mongodb.co
 
 ### Start the Development Servers
 
-The application's frontend is built with ReactJS and the backend with ExpressJS. Each run their own development server indipendently in different ports. We have set up for the frontend server to run in port 3000 and for the backend in port 5000. If you want to change that, edit the `config/config.env` and `client/.env` files respectively. To start the development servers simply run from the root folder:
+The application's frontend is built with ReactJS and the backend with ExpressJS. Each run their own development server indipendently in different ports. We have set up for the frontend server to run in port 3000 and for the backend in port 5000. If you want to change that, edit the `config/config.env` and `client/.env` files respectively. Also, if you change the server port be sure to change the client proxy in `client/package.json`. To start the development servers simply run from the root folder:
 
 ```bash
 $ npm run dev
