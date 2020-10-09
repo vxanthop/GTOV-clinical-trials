@@ -1,7 +1,4 @@
-# :pill: Appathon-NTUA  Statistical Analysis on the GTOV Dataset
-
-Web application project for the 2019-2020 Internet and Applications course @ ECE-NTUA.
-
+# :pill: Statistical Analysis on the GTOV Dataset
 
 
 ## :memo: Description
