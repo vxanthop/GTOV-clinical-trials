@@ -47,7 +47,7 @@ Server-Side: Node.js, Express.js, MongoDB, ESLint
    - Download the mongodump from https://www.dropbox.com/sh/bgdz7289qs1t4t0/AAAwLr-rZxkCPQCeEE7uXxJTa?dl=0, extract inside the `data/` folder and then run:
 
      ```bash
-      $ mongorestore -d gtov data/mongodump/gtov
+      $ mongorestore -d gtov mongodump/mongodump/gtov/
      ```
 
    - Download all the XML files from https://clinicaltrials.gov/AllPublicXML.zip, extract inside the `data/` folder, run:
