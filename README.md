@@ -29,7 +29,7 @@ Server-Side: Node.js, Express.js, MongoDB, ESLint
 
    ```bash
    $ git clone https://github.com/vilaras/GTOV-clinical-trials.git
-   $ cd GTOV-clinical-trials.git
+   $ cd GTOV-clinical-trials
    ```
 
 3. Install package dependencies for server and client
