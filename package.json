@@ -1,7 +1,7 @@
 {
-  "name": "appathon-ntua",
+  "name": "gtov-clinical-trials",
   "version": "1.0.0",
-  "description": "Web app for Internet and Applications course",
+  "description": "Statistical Analysis on the GTOV Dataset",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vilaras/Appathon-NTUA.git"
+    "url": "git+https://github.com/vilaras/GTOV-clinical-trials.git"
   },
   "author": "Vassilis Xanthopoulos",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/vilaras/Appathon-NTUA/issues"
+    "url": "https://github.com/vilaras/GTOV-clinical-trials.git/issues"
   },
-  "homepage": "https://github.com/vilaras/Appathon-NTUA#readme",
+  "homepage": "https://github.com/vilaras/GTOV-clinical-trials.git#readme",
   "dependencies": {
     "concurrently": "^5.3.0",
     "dotenv": "^8.2.0",
